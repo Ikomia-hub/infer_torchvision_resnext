@@ -1,6 +1,4 @@
 from ikomia import dataprocess
-import ResNeXt_process as processMod
-import ResNeXt_widget as widgetMod
 
 
 # --------------------
@@ -13,9 +11,11 @@ class ResNeXt(dataprocess.CPluginProcessInterface):
         dataprocess.CPluginProcessInterface.__init__(self)
 
     def getProcessFactory(self):
+        from ResNeXt.ResNeXt_process import ResNeXtProcessFactory
         # Instantiate process object
-        return processMod.ResNeXtProcessFactory()
+        return ResNeXtProcessFactory()
 
     def getWidgetFactory(self):
+        from ResNeXt.ResNeXt_widget import ResNeXtWidgetFactory
         # Instantiate associated widget object
-        return widgetMod.ResNeXtWidgetFactory()
+        return ResNeXtWidgetFactory()
