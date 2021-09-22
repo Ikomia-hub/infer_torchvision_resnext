@@ -5,17 +5,17 @@ from ikomia import dataprocess
 # - Interface class to integrate the process with Ikomia application
 # - Inherits dataprocess.CPluginProcessInterface from Ikomia API
 # --------------------
-class ResNeXt(dataprocess.CPluginProcessInterface):
+class IkomiaPlugin(dataprocess.CPluginProcessInterface):
 
     def __init__(self):
         dataprocess.CPluginProcessInterface.__init__(self)
 
     def getProcessFactory(self):
-        from ResNeXt.ResNeXt_process import ResNeXtProcessFactory
+        from infer_torchvision_resnext.infer_torchvision_resnext_process import ResnextFactory
         # Instantiate process object
-        return ResNeXtProcessFactory()
+        return ResnextFactory()
 
     def getWidgetFactory(self):
-        from ResNeXt.ResNeXt_widget import ResNeXtWidgetFactory
+        from infer_torchvision_resnext.infer_torchvision_resnext_widget import ResnextWidgetFactory
         # Instantiate associated widget object
-        return ResNeXtWidgetFactory()
+        return ResnextWidgetFactory()

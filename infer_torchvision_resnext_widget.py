@@ -1,7 +1,7 @@
 import os
 from ikomia import utils, core, dataprocess
 from ikomia.utils import pyqtutils, qtconversion
-from ResNeXt.ResNeXt_process import ResNeXtParam
+from infer_torchvision_resnext.infer_torchvision_resnext_process import ResnextParam
 # PyQt GUI framework
 from PyQt5.QtWidgets import *
 
@@ -10,13 +10,13 @@ from PyQt5.QtWidgets import *
 # - Class which implements widget associated with the process
 # - Inherits core.CProtocolTaskWidget from Ikomia API
 # --------------------
-class ResNeXtWidget(core.CWorkflowTaskWidget):
+class ResnextWidget(core.CWorkflowTaskWidget):
 
     def __init__(self, param, parent):
         core.CWorkflowTaskWidget.__init__(self, parent)
 
         if param is None:
-            self.parameters = ResNeXtParam()
+            self.parameters = ResnextParam()
         else:
             self.parameters = param
 
@@ -95,13 +95,13 @@ class ResNeXtWidget(core.CWorkflowTaskWidget):
 # - Factory class to build process widget object
 # - Inherits dataprocess.CWidgetFactory from Ikomia API
 # --------------------
-class ResNeXtWidgetFactory(dataprocess.CWidgetFactory):
+class ResnextWidgetFactory(dataprocess.CWidgetFactory):
 
     def __init__(self):
         dataprocess.CWidgetFactory.__init__(self)
         # Set the name of the process -> it must be the same as the one declared in the process factory class
-        self.name = "ResNeXt"
+        self.name = "infer_torchvision_resnext"
 
     def create(self, param):
         # Create widget object
-        return ResNeXtWidget(param, None)
+        return ResnextWidget(param, None)
