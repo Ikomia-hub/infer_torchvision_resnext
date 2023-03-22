@@ -10,12 +10,12 @@ class IkomiaPlugin(dataprocess.CPluginProcessInterface):
     def __init__(self):
         dataprocess.CPluginProcessInterface.__init__(self)
 
-    def getProcessFactory(self):
+    def get_process_factory(self):
         from infer_torchvision_resnext.infer_torchvision_resnext_process import ResnextFactory
         # Instantiate process object
         return ResnextFactory()
 
-    def getWidgetFactory(self):
+    def get_widget_factory(self):
         from infer_torchvision_resnext.infer_torchvision_resnext_widget import ResnextWidgetFactory
         # Instantiate associated widget object
         return ResnextWidgetFactory()
