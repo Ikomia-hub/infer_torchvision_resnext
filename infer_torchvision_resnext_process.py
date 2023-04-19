@@ -17,6 +17,7 @@ class ResnextParam(core.CWorkflowTaskParam):
     def __init__(self):
         core.CWorkflowTaskParam.__init__(self)
         # Place default value initialization here
+        self.model_name_or_path = ""
         self.model_name = 'resnext50'
         self.dataset = 'ImageNet'
         self.input_size = 224
@@ -27,6 +28,7 @@ class ResnextParam(core.CWorkflowTaskParam):
     def set_values(self, param_map):
         # Set parameters values from Ikomia application
         # Parameters values are stored as string and accessible like a python dict
+        self.model_name_or_path = param_map["model_name_or_path"]
         self.model_name = param_map["model_name"]
         self.dataset = param_map["dataset"]
         self.input_size = int(param_map["input_size"])
@@ -37,6 +39,7 @@ class ResnextParam(core.CWorkflowTaskParam):
         # Send parameters values to Ikomia application
         # Create the specific dict structure (string container)
         param_map = {
+            "model_name_or_path": self.model_name_or_path,
             "model_name": self.model_name,
             "dataset": self.dataset,
             "input_size": str(self.input_size),
@@ -103,6 +106,13 @@ class Resnext(dataprocess.CClassificationTask):
         if self.model is None or param.update:
             # Load class names
             self.read_class_names(param.classes_path)
+
+            if param.model_name_or_path != "":
+                if os.path.isfile(param.model_name_or_path):
+                    param.dataset = "Custom"
+                    param.model_path = param.model_name_or_path
+                else:
+                    param.model_name = param.model_name_or_path
 
             # Load model
             use_torchvision = param.dataset != "Custom"
