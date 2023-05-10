@@ -38,7 +38,7 @@ class ResnextWidget(core.CWorkflowTaskWidget):
 
         self.browse_model = pyqtutils.append_browse_file(self.grid_layout, "Model path", self.parameters.model_path)
 
-        self.browse_classes = pyqtutils.append_browse_file(self.grid_layout, "Classes path", self.parameters.classes_path)
+        self.browse_classes = pyqtutils.append_browse_file(self.grid_layout, "Classes path", self.parameters.class_file)
 
         if self.parameters.dataset == "ImageNet":
             self.browse_model.set_path("Not used")
@@ -85,7 +85,7 @@ class ResnextWidget(core.CWorkflowTaskWidget):
         self.parameters.dataset = self.combo_dataset.currentText()
         self.parameters.input_size = self.spin_size.value()
         self.parameters.model_path = self.browse_model.path
-        self.parameters.classes_path = self.browse_classes.path
+        self.parameters.class_file = self.browse_classes.path
 
         # Send signal to launch the process
         self.emit_apply(self.parameters)
