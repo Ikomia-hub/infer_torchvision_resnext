@@ -169,7 +169,7 @@ class ResnextFactory(dataprocess.CTaskFactory):
         self.info.article = "Aggregated Residual Transformations for Deep Neural Networks"
         self.info.journal = "Conference on Computer Vision and Pattern Recognition (CVPR)"
         self.info.year = 2017
-        self.info.licence = "BSD-3-Clause License"
+        self.info.license = "BSD-3-Clause License"
         self.info.documentation_link = "https://arxiv.org/abs/1611.05431"
         self.info.repository = "https://github.com/pytorch/vision"
         # relative path -> as displayed in Ikomia application process tree
