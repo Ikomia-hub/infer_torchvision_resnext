@@ -65,6 +65,9 @@ class Resnext(dataprocess.CClassificationTask):
         else:
             self.set_param_object(copy.deepcopy(param))
 
+        self.model_folder = os.path.join(os.path.dirname(os.path.realpath(__file__)), "weights")
+
+
     def get_progress_steps(self):
         # Function returning the number of progress steps for this process
         # This is handled by the main progress bar of Ikomia application
@@ -106,6 +109,7 @@ class Resnext(dataprocess.CClassificationTask):
 
             # Load model
             use_torchvision = param.dataset != "Custom"
+            torch.hub.set_dir(self.model_folder)
             self.model = models.resnext(model_name=param.model_name,
                                         use_pretrained=use_torchvision,
                                         classes=len(self.get_names()))
@@ -165,7 +169,7 @@ class ResnextFactory(dataprocess.CTaskFactory):
         # relative path -> as displayed in Ikomia application process tree
         self.info.path = "Plugins/Python/Classification"
         self.info.icon_path = "icons/pytorch-logo.png"
-        self.info.version = "1.2.0"
+        self.info.version = "1.2.1"
         self.info.keywords = "residual,cnn,classification"
 
     def create(self, param=None):
