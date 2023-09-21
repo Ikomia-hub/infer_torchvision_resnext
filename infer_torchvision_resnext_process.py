@@ -113,10 +113,12 @@ class Resnext(dataprocess.CClassificationTask):
 
             # Load model
             use_torchvision = param.dataset != "Custom"
+            old_hub_dir = torch.hub.get_dir()
             torch.hub.set_dir(self.model_folder)
             self.model = models.resnext(model_name=param.model_name,
                                         use_pretrained=use_torchvision,
                                         classes=len(self.get_names()))
+            torch.hub.set_dir(old_hub_dir)
             if param.dataset == "Custom":
                 self.model.load_state_dict(torch.load(param.model_path, map_location=self.device))
 
