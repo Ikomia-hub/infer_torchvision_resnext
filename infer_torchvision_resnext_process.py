@@ -21,7 +21,7 @@ class ResnextParam(core.CWorkflowTaskParam):
         self.dataset = 'ImageNet'
         self.input_size = 224
         self.model_path = ''
-        self.class_file = os.path.dirname(os.path.realpath(__file__)) + "/models/imagenet_classes.txt"
+        self.class_file = ''
         self.update = False
 
     def set_values(self, param_map):
@@ -105,7 +105,11 @@ class Resnext(dataprocess.CClassificationTask):
         # Load model
         if self.model is None or param.update:
             # Load class names
-            self.read_class_names(param.class_file)
+            if param.class_file == '':
+                class_file = os.path.dirname(os.path.realpath(__file__)) + "/models/imagenet_classes.txt"
+            else:
+                class_file = param.class_file
+            self.read_class_names(class_file)
 
             # Load model
             use_torchvision = param.dataset != "Custom"
