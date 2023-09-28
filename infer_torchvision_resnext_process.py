@@ -159,19 +159,14 @@ class ResnextFactory(dataprocess.CTaskFactory):
         # Set process information as string here
         self.info.name = "infer_torchvision_resnext"
         self.info.short_description = "ResNeXt inference model for image classification."
-        self.info.description = "ResNeXt inference model for image classification. " \
-                                "Implementation from PyTorch torchvision package. " \
-                                "This Ikomia plugin can make inference of pre-trained model from " \
-                                "ImageNet dataset or custom trained model. Custom training can be made with " \
-                                "the associated MaskRCNNTrain plugin from Ikomia marketplace. Different versions " \
-                                "are available with 50 and 101 layers."
         self.info.authors = "Saining Xie, Ross Girshick, Piotr Dollár, Zhuowen Tu, Kaiming He"
         self.info.article = "Aggregated Residual Transformations for Deep Neural Networks"
         self.info.journal = "Conference on Computer Vision and Pattern Recognition (CVPR)"
         self.info.year = 2017
         self.info.license = "BSD-3-Clause License"
         self.info.documentation_link = "https://arxiv.org/abs/1611.05431"
-        self.info.repository = "https://github.com/pytorch/vision"
+        self.info.repository = "https://github.com/Ikomia-hub/infer_torchvision_resnext"
+        self.info.original_repository = "https://github.com/pytorch/vision"
         # relative path -> as displayed in Ikomia application process tree
         self.info.path = "Plugins/Python/Classification"
         self.info.icon_path = "icons/pytorch-logo.png"
