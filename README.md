@@ -22,7 +22,7 @@
 
 ResNext inference model for image classification. 
 
-![Cat classification](https://raw.githubusercontent.com/Ikomia-hub/infer_torchvision_resnext/feat/new_readme/icons/output.jpg)
+![Cat classification](https://raw.githubusercontent.com/Ikomia-hub/infer_torchvision_resnext/main/icons/output.jpg)
 
 
 ## :rocket: Use with Ikomia API
