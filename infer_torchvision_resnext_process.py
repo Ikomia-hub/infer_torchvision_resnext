@@ -57,7 +57,8 @@ class Resnext(dataprocess.CClassificationTask):
         self.model = None
         self.colors = None
         # Detect if we have a GPU available
-        self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+        self.device = torch.device(
+            "cuda:0" if torch.cuda.is_available() else "cpu")
 
         # Create parameters class
         if param is None:
@@ -65,8 +66,8 @@ class Resnext(dataprocess.CClassificationTask):
         else:
             self.set_param_object(copy.deepcopy(param))
 
-        self.model_folder = os.path.join(os.path.dirname(os.path.realpath(__file__)), "weights")
-
+        self.model_folder = os.path.join(
+            os.path.dirname(os.path.realpath(__file__)), "weights")
 
     def get_progress_steps(self):
         # Function returning the number of progress steps for this process
@@ -78,8 +79,9 @@ class Resnext(dataprocess.CClassificationTask):
 
         trs = transforms.Compose([
             transforms.ToTensor(),
-            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-            ])
+            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[
+                                 0.229, 0.224, 0.225])
+        ])
 
         input_tensor = trs(input_img).to(self.device)
         input_tensor = input_tensor.unsqueeze(0)
@@ -106,7 +108,8 @@ class Resnext(dataprocess.CClassificationTask):
         if self.model is None or param.update:
             # Load class names
             if param.class_file == '':
-                class_file = os.path.dirname(os.path.realpath(__file__)) + "/models/imagenet_classes.txt"
+                class_file = os.path.dirname(os.path.realpath(
+                    __file__)) + "/models/imagenet_classes.txt"
             else:
                 class_file = param.class_file
             self.read_class_names(class_file)
@@ -120,7 +123,8 @@ class Resnext(dataprocess.CClassificationTask):
                                         classes=len(self.get_names()))
             torch.hub.set_dir(old_hub_dir)
             if param.dataset == "Custom":
-                self.model.load_state_dict(torch.load(param.model_path, map_location=self.device))
+                self.model.load_state_dict(torch.load(
+                    param.model_path, map_location=self.device))
 
             self.model.to(self.device)
             param.update = False
@@ -129,7 +133,8 @@ class Resnext(dataprocess.CClassificationTask):
             image_in = self.get_input(0)
             src_image = image_in.get_image()
             predictions = self.predict(src_image, param.input_size)
-            sorted_data = sorted(zip(predictions.flatten().tolist(), self.get_names()), reverse=True)
+            sorted_data = sorted(
+                zip(predictions.flatten().tolist(), self.get_names()), reverse=True)
             confidences = [str(conf) for conf, _ in sorted_data]
             names = [name for _, name in sorted_data]
             self.set_whole_image_results(names, confidences)
@@ -142,7 +147,8 @@ class Resnext(dataprocess.CClassificationTask):
 
                 predictions = self.predict(roi_img, param.input_size)
                 class_index = predictions.argmax().item()
-                self.add_object(obj, class_index, predictions[class_index].item())
+                self.add_object(obj, class_index,
+                                predictions[class_index].item())
 
         # Call end_task_run to finalize process
         self.end_task_run()
@@ -170,7 +176,9 @@ class ResnextFactory(dataprocess.CTaskFactory):
         # relative path -> as displayed in Ikomia application process tree
         self.info.path = "Plugins/Python/Classification"
         self.info.icon_path = "icons/pytorch-logo.png"
-        self.info.version = "1.2.2"
+        self.info.version = "2.0.0"
+        self.info.min_ikomia_version = "0.15.0"
+        self.info.min_python_version = "3.11.0"
         self.info.keywords = "residual,cnn,classification"
         self.info.algo_type = core.AlgoType.INFER
         self.info.algo_tasks = "CLASSIFICATION"
